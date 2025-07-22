@@ -545,11 +545,17 @@ public class SupportFunctions {
         File archiveFile = null;
 
         for (File element : folderElements) {
-            descriptorFile = checkThatFileIsDescriptorAndReturn(element);
+            if (descriptorFile == null) {
+                descriptorFile = checkThatFileIsDescriptorAndReturn(element);
+            }
 
-            archiveFile = checkThatFileIsArchiveAndReturn(element, config);
+            if (archiveFile == null) {
+                archiveFile = checkThatFileIsArchiveAndReturn(element, config);
+            }
 
-            archiveFile = checkThatFileIsDirectoryAndReturn(element, config);
+            if (archiveFile == null) {
+                archiveFile = checkThatFileIsDirectoryAndReturn(element, config);
+            }
         }
 
         if (descriptorFile == null || archiveFile == null) {

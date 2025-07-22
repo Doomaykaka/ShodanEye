@@ -177,7 +177,8 @@ public class BackupController {
             return;
         }
 
-        List<File> allData = List.copyOf(backupFiles);
+        List<File> allData = new ArrayList<>();
+        allData.addAll(backupFiles);
         allData.addAll(backupFolders);
         File relativePath = SupportFunctions.getRelativePath(allData);
 

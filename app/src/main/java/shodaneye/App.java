@@ -19,7 +19,7 @@ public class App {
 
         // controller.createNewBackup(testWorkspace);
 
-        // controller.restore(testWorkspace);
+        controller.restore(testWorkspace);
 
     }
 
