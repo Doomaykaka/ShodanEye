@@ -64,7 +64,7 @@
 
 UML:
 
-![1](.\doc-images\UML.jpg "UML")
+![1](doc-images/UML.jpg)
 
 Элементы системы:
 
