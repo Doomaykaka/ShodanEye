@@ -3,24 +3,30 @@ package shodaneye;
 import java.util.List;
 
 import shodaneye.controllers.BackupController;
+import shodaneye.gui.Tray;
 import shodaneye.models.Workspace;
 import shodaneye.utils.Config;
 import shodaneye.utils.Constants;
+import shodaneye.utils.Logger;
+import shodaneye.utils.SupportFunctions;
 
 public class App {
     private static boolean isClosed = Constants.getBoolDefault();
 
     public static void main(String[] args) {
+        start();
+    }
+
+    private static void start() {
+        Logger.printApplicationLog("App started", "App");
+
         Config appConfig = Config.getConfig();
+        List<Workspace> workspaces = SupportFunctions.findWorkspaces(appConfig);
 
-        Workspace testWorkspace = new Workspace("testWorkspace");
+        BackupController controller = new BackupController(workspaces);
 
-        BackupController controller = new BackupController(List.of(testWorkspace));
-
-        // controller.createNewBackup(testWorkspace);
-
-        controller.restore(testWorkspace);
-
+        Tray tray = new Tray(controller);
+        tray.show();
     }
 
     public static boolean isClosed() {

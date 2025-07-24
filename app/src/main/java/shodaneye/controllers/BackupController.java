@@ -17,6 +17,7 @@ import shodaneye.models.BackupStrategy;
 import shodaneye.models.BackupStrategyType;
 import shodaneye.models.Workspace;
 import shodaneye.utils.Config.WorkspaceConfig;
+import shodaneye.utils.Config;
 import shodaneye.utils.Constants;
 import shodaneye.utils.Logger;
 import shodaneye.utils.SupportFunctions;
@@ -250,13 +251,21 @@ public class BackupController {
             }
 
             try {
-                Thread.sleep(Constants.getBackupCheckerDelayMs());
+                Long delay = Long.parseLong(Config.getConfig().getFilesCheckDelayMs());
+                Thread.sleep(delay);
             } catch (InterruptedException e) {
                 Logger.printApplicationLog("waiting error", "BackupController");
                 Logger.printApplicationLog(e.getMessage(), "BackupController");
+                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                Logger.printApplicationLog("Bad backup checker delay", "Tray");
+                Logger.printApplicationLog(e.getMessage(), "Tray");
                 e.printStackTrace();
             }
         }
     }
 
+    public List<Workspace> getWorkspaces() {
+        return workspaces;
+    }
 }

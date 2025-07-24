@@ -26,6 +26,7 @@ public class Constants {
     private final static String CHRONO_UNITS_SEPARATOR = "-";
     private final static String TIME_UNITS_MILLIS_SEPARATOR = "\\.";
     private final static String WRITE_FILE_FLAGS = "rw";
+    private final static String SYSTEM_ENCODING_PROPERTY = "file.encoding";
 
     // Config
     private final static String CONFIG_PARENT_FOLDER_NAME = "user.dir";
@@ -33,6 +34,9 @@ public class Constants {
     private final static String CONFIG_NOT_FOUND_MESSAGE = "Config not found. Please create config file with path:";
     private final static String CONFIG_PARSE_EXCEPTION_MESSAGE_PREFIX = "Param ";
     private final static String CONFIG_PARSE_EXCEPTION_MESSAGE_POSTFIX = " not parsed";
+    private final static String PROPERTY_NAME_FILES_CHECK_DELAY = "files-check-delay";
+    private final static String PROPERTY_NAME_TRAY_SHOW_TIME_MS = "tray-show-time-ms";
+    private final static String PROPERTY_NAME_ENCODING = "encoding";
     private final static String PROPERTY_NAME_LOG_APP = "log-app";
     private final static String PROPERTY_NAME_LAF_IS_NEEDED = "laf-is-needed";
     private final static String PROPERTY_NAME_DARK_THEME_IS_NEEDED = "dark-is-needed";
@@ -68,6 +72,10 @@ public class Constants {
 
     // Controller
     private final static long BACKUP_CHECKER_DELAY_MS = 10000;
+
+    // GUI
+    private final static String GUI_IMAGE_ICON_RESOURCE_PATH = "/images/app_icon.jpg";
+    private final static long TRAY_HIDE_DELAY = 4000;
 
     public static String getAppName() {
         return APP_NAME;
@@ -307,5 +315,29 @@ public class Constants {
 
     public static String getWriteFileFlags() {
         return WRITE_FILE_FLAGS;
+    }
+
+    public static String getGuiImageIconResourcePath() {
+        return GUI_IMAGE_ICON_RESOURCE_PATH;
+    }
+
+    public static String getSystemEncodingProperty() {
+        return SYSTEM_ENCODING_PROPERTY;
+    }
+
+    public static String getPropertyNameEncoding() {
+        return PROPERTY_NAME_ENCODING;
+    }
+
+    public static long getTrayHideDelay() {
+        return TRAY_HIDE_DELAY;
+    }
+
+    public static String getPropertyNameFilesCheckDelay() {
+        return PROPERTY_NAME_FILES_CHECK_DELAY;
+    }
+
+    public static String getPropertyNameTrayShowTimeMs() {
+        return PROPERTY_NAME_TRAY_SHOW_TIME_MS;
     }
 }

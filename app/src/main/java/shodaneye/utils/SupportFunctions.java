@@ -5,8 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,9 +56,9 @@ public class SupportFunctions {
     }
 
     public static List<String> readFileContent(File fileToRead) {
-        String emptyEncoding = null;
+        String defaultEncoding = Config.getConfig().getSystemEncoding();
 
-        return readFileContent(fileToRead, emptyEncoding);
+        return readFileContent(fileToRead, defaultEncoding);
     }
 
     public static List<String> readFileContent(File fileToRead, String encoding) {
@@ -158,6 +161,7 @@ public class SupportFunctions {
         zipFileSettings.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD);
 
         ZipFile zipFile = new ZipFile(archive, workspaceConfig.getBackupPassword().toCharArray());
+        zipFile.setCharset(Charset.forName(Config.getConfig().getSystemEncoding()));
 
         List<File> filepathsParsed = listOfPathsToListOfFiles(filepaths);
         List<File> folderpathsParsed = listOfPathsToListOfFiles(folderpaths);
@@ -226,7 +230,8 @@ public class SupportFunctions {
         File relativePathFile = getRelativePath(allPaths);
         Path relativePath = Paths.get(relativePathFile.toURI());
 
-        try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(archive))) {
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(archive),
+                Charset.forName(Config.getConfig().getSystemEncoding()))) {
             putFoldersIntoZip(folderpathsParsed, relativePath, zipOutputStream);
             putFilesIntoZip(filepathsParsed, relativePath, zipOutputStream);
         } catch (Exception e) {
@@ -275,7 +280,9 @@ public class SupportFunctions {
     public static boolean unzipFilesAndFoldersFromArchive(File targetFolder, File archive, String password) {
         boolean success = Constants.getBoolDefault();
 
-        try (ZipFile fileToUnzip = new ZipFile(archive)) {
+        try (ZipFile fileToUnzip = new ZipFile(archive, password.toCharArray())) {
+            fileToUnzip.setCharset(Charset.forName(Config.getConfig().getSystemEncoding()));
+
             fileToUnzip.extractAll(targetFolder.getAbsolutePath());
             success = !Constants.getBoolDefault();
         } catch (IOException e) {
@@ -356,6 +363,7 @@ public class SupportFunctions {
 
         try {
             FileOutputStream configFOS = new FileOutputStream(backupDescriptorFile);
+            OutputStreamWriter writer = new OutputStreamWriter(configFOS, Config.getConfig().getSystemEncoding());
 
             SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFilepaths(),
                     filepaths);
@@ -377,7 +385,7 @@ public class SupportFunctions {
                     createdOn);
             SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameVersion(), version);
 
-            properties.store(configFOS, Constants.getTextDefault());
+            properties.store(writer, Constants.getTextDefault());
             configFOS.flush();
             configFOS.close();
         } catch (FileNotFoundException e) {
@@ -684,8 +692,9 @@ public class SupportFunctions {
         FileInputStream descriptorFIS;
         try {
             descriptorFIS = new FileInputStream(descriptorFile);
+            InputStreamReader reader = new InputStreamReader(descriptorFIS, Config.getConfig().getSystemEncoding());
             Properties properties = new Properties();
-            properties.load(descriptorFIS);
+            properties.load(reader);
 
             filepaths = SupportFunctions.getStringProperty(properties,
                     Constants.getBackupDescriptorPropertyNameFilepaths());
@@ -760,7 +769,13 @@ public class SupportFunctions {
     }
 
     private static void copyFile(File source, File destination) {
-        File fileInDestination = new File(destination.getAbsolutePath(), source.getName());
+        File fileInDestination = null;
+
+        if (destination != null && destination.exists() && destination.isDirectory()) {
+            fileInDestination = new File(destination.getAbsolutePath(), source.getName());
+        } else {
+            fileInDestination = new File(destination.getAbsolutePath());
+        }
 
         RandomAccessFile fileInDestinationW = null;
 
@@ -918,6 +933,32 @@ public class SupportFunctions {
         boolean needDataCheck = !Constants.getBoolDefault();
 
         result = new BackupDescriptor(foldersToBackup, filesToBackup, isSecured, needDataCheck);
+
+        return result;
+    }
+
+    public static List<Workspace> findWorkspaces(Config config) {
+        Logger.printApplicationLog("Search workspaces", "SupportFunctions");
+
+        List<Workspace> result = new ArrayList<Workspace>();
+
+        if (config.getBackupsFolderPath() == null || config.getBackupsFolderPath().isEmpty()) {
+            Logger.printApplicationLog("cant find workspaces to process", "SupportFunctions");
+            nonCorrectExit();
+        }
+
+        File backupsFolder = new File(config.getBackupsFolderPath());
+
+        if (!backupsFolder.exists()) {
+            Logger.printApplicationLog("cant find backups folder", "SupportFunctions");
+            nonCorrectExit();
+        }
+
+        for (File workspaceFolder : backupsFolder.listFiles()) {
+            if (workspaceFolder.exists() && workspaceFolder.isDirectory()) {
+                result.add(new Workspace(workspaceFolder.getName()));
+            }
+        }
 
         return result;
     }
