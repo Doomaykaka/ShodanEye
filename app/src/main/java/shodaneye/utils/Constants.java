@@ -2,80 +2,81 @@ package shodaneye.utils;
 
 public class Constants {
     // App
-    private final static String APP_NAME = "SmallBackup";
-    private final static String TEXT_DEFAULT = "";
-    private final static String SPACE = " ";
-    private final static String SPACE_REGEXP = "\s";
-    private final static Boolean BOOL_DEFAULT = false;
-    private final static int INT_DEFAULT = -1;
-    private final static int INT_DEFAULT_ALT = 0;
-    private final static int START_INDEX = 0;
-    private final static int SIZE_TO_INDEX_OFFSET = -1;
-    private final static String LOG_FILE_PARENT_FOLDER_NAME = "user.dir";
-    private final static String LOG_FILENAME = "application.log";
-    private final static String NEW_LINE = "\n";
-    private final static String NEW_LINE_OLD_SEPARATOR = "/nl";
-    private final static String LOG_FILES_DELIMETER = "-------------------------------------";
-    private final static String BACKUP_DESCRIPTION_FILE_EXT = ".desc";
-    private final static String BACKUP_ARCHIVE_FILE_EXT = ".zip";
-    private final static String LIST_SEPARATOR = ";";
-    private final static String TIME_SEPARATOR = ":";
-    private final static String FS_SEPARATOR = "-";
-    private final static int CORRECT_EXIT_CODE = 0;
-    private final static int NON_CORRECT_EXIT_CODE = 0;
-    private final static String CHRONO_UNITS_SEPARATOR = "-";
-    private final static String TIME_UNITS_MILLIS_SEPARATOR = "\\.";
-    private final static String WRITE_FILE_FLAGS = "rw";
-    private final static String SYSTEM_ENCODING_PROPERTY = "file.encoding";
+    private static final String APP_NAME = "SmallBackup";
+    private static final String TEXT_DEFAULT = "";
+    private static final String SPACE = " ";
+    private static final String SPACE_REGEXP = "\s";
+    private static final Boolean BOOL_DEFAULT = false;
+    private static final int INT_DEFAULT = -1;
+    private static final int INT_DEFAULT_ALT = 0;
+    private static final int START_INDEX = 0;
+    private static final int SIZE_TO_INDEX_OFFSET = -1;
+    private static final String LOG_FILE_PARENT_FOLDER_NAME = "user.dir";
+    private static final String LOG_FILENAME = "application.log";
+    private static final String NEW_LINE = "\n";
+    private static final String NEW_LINE_OLD_SEPARATOR = "/nl";
+    private static final String LOG_FILES_DELIMETER = "-------------------------------------";
+    private static final String BACKUP_DESCRIPTION_FILE_EXT = ".desc";
+    private static final String BACKUP_ARCHIVE_FILE_EXT = ".zip";
+    private static final String LIST_SEPARATOR = ";";
+    private static final String TIME_SEPARATOR = ":";
+    private static final String FS_SEPARATOR = "-";
+    private static final int CORRECT_EXIT_CODE = 0;
+    private static final int NON_CORRECT_EXIT_CODE = 0;
+    private static final String CHRONO_UNITS_SEPARATOR = "-";
+    private static final String TIME_UNITS_MILLIS_SEPARATOR = "\\.";
+    private static final String WRITE_FILE_FLAGS = "rw";
+    private static final String SYSTEM_ENCODING_PROPERTY = "file.encoding";
 
     // Config
-    private final static String CONFIG_PARENT_FOLDER_NAME = "user.dir";
-    private final static String CONFIG_FILENAME = "settings.conf";
-    private final static String CONFIG_NOT_FOUND_MESSAGE = "Config not found. Please create config file with path:";
-    private final static String CONFIG_PARSE_EXCEPTION_MESSAGE_PREFIX = "Param ";
-    private final static String CONFIG_PARSE_EXCEPTION_MESSAGE_POSTFIX = " not parsed";
-    private final static String PROPERTY_NAME_FILES_CHECK_DELAY = "files-check-delay";
-    private final static String PROPERTY_NAME_TRAY_SHOW_TIME_MS = "tray-show-time-ms";
-    private final static String PROPERTY_NAME_ENCODING = "encoding";
-    private final static String PROPERTY_NAME_LOG_APP = "log-app";
-    private final static String PROPERTY_NAME_LAF_IS_NEEDED = "laf-is-needed";
-    private final static String PROPERTY_NAME_DARK_THEME_IS_NEEDED = "dark-is-needed";
-    private final static String PROPERTY_NAME_RUSSIAN_LANGUAGE_IS_NEEDED = "russian-is-needed";
-    private final static String PROPERTY_NAME_BACKUP_PASSWORD = "backup-password";
-    private final static String PROPERTY_NAME_BACKUP_DATE_DIFF = "backup-date-diff";
-    private final static String PROPERTY_NAME_BACKUP_FOLDER_PATH = "backup-folder-path";
-    private final static String PROPERTY_NAME_BACKUP_USE_TIMESTAMP = "backup-use-timestamp";
-    private final static String PROPERTY_NAME_BACKUP_USE_VERSION = "backup-use-version";
-    private final static String PROPERTY_NAME_BACKUP_PREFFIX = "backup-prefix";
-    private final static String PROPERTY_NAME_BACKUP_POSTFIX = "backup-postfix";
-    private final static String PROPERTY_NAME_BACKUP_IN_ARCHIVE = "backup-in-archive";
-    private final static String PROPERTY_NAME_BACKUPS_STRATEGY_TYPES = "backups-strategy-types";
-    private final static String PROPERTY_NAME_FILES_TO_BACKUP = "files-to-backup";
-    private final static String PROPERTY_NAME_FOLDERS_TO_BACKUP = "folders-to-backup";
-    private final static String CONFIG_DEFAULT_STRING_PROPERTIES_VALUES = "";
-    private final static Boolean CONFIG_DEFAULT_BOOLEAN_PROPERTIES_VALUES = false;
-    private final static String CONFIG_FOLDER_NOT_FOUND_MESSAGE = "Config folder not found. Please create config folder with path:";
-    private final static String CONFIG_DATE_FORMAT_DEFAULT = "EEE MMM dd HH:mm:ss zzz yyyy";
+    private static final String CONFIG_PARENT_FOLDER_NAME = "user.dir";
+    private static final String CONFIG_FILENAME = "settings.conf";
+    private static final String CONFIG_NOT_FOUND_MESSAGE = "Config not found. Please create config file with path:";
+    private static final String CONFIG_PARSE_EXCEPTION_MESSAGE_PREFIX = "Param ";
+    private static final String CONFIG_PARSE_EXCEPTION_MESSAGE_POSTFIX = " not parsed";
+    private static final String PROPERTY_NAME_FILES_CHECK_DELAY = "files-check-delay";
+    private static final String PROPERTY_NAME_TRAY_SHOW_TIME_MS = "tray-show-time-ms";
+    private static final String PROPERTY_NAME_ENCODING = "encoding";
+    private static final String PROPERTY_NAME_LOG_APP = "log-app";
+    private static final String PROPERTY_NAME_LAF_IS_NEEDED = "laf-is-needed";
+    private static final String PROPERTY_NAME_DARK_THEME_IS_NEEDED = "dark-is-needed";
+    private static final String PROPERTY_NAME_RUSSIAN_LANGUAGE_IS_NEEDED = "russian-is-needed";
+    private static final String PROPERTY_NAME_BACKUP_PASSWORD = "backup-password";
+    private static final String PROPERTY_NAME_BACKUP_DATE_DIFF = "backup-date-diff";
+    private static final String PROPERTY_NAME_BACKUP_FOLDER_PATH = "backup-folder-path";
+    private static final String PROPERTY_NAME_BACKUP_USE_TIMESTAMP = "backup-use-timestamp";
+    private static final String PROPERTY_NAME_BACKUP_USE_VERSION = "backup-use-version";
+    private static final String PROPERTY_NAME_BACKUP_PREFFIX = "backup-prefix";
+    private static final String PROPERTY_NAME_BACKUP_POSTFIX = "backup-postfix";
+    private static final String PROPERTY_NAME_BACKUP_IN_ARCHIVE = "backup-in-archive";
+    private static final String PROPERTY_NAME_BACKUPS_STRATEGY_TYPES = "backups-strategy-types";
+    private static final String PROPERTY_NAME_FILES_TO_BACKUP = "files-to-backup";
+    private static final String PROPERTY_NAME_FOLDERS_TO_BACKUP = "folders-to-backup";
+    private static final String CONFIG_DEFAULT_STRING_PROPERTIES_VALUES = "";
+    private static final Boolean CONFIG_DEFAULT_BOOLEAN_PROPERTIES_VALUES = false;
+    private static final String CONFIG_FOLDER_NOT_FOUND_MESSAGE =
+            "Config folder not found. Please create config folder with path:";
+    private static final String CONFIG_DATE_FORMAT_DEFAULT = "EEE MMM dd HH:mm:ss zzz yyyy";
 
     // Backup
-    private final static String BACKUP_NAME_PARTS_SEPARATOR = "-";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_FILEPATHS = "descriptor-filepaths";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_FOLDERPATHS = "descriptor-folderpaths";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_CHECKSUM = "descriptor-checksum";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_FILES_COUNT = "descriptor-files-count";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_FOLDERS_COUNT = "descriptor-folders-count";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_FILES_COUNT_TOTAL = "descriptor-files-count-total";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_FOLDERS_COUNT_TOTAL = "descriptor-folders-count-total";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_IS_SECURED = "descriptor-is-secured";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_CREATED_ON = "descriptor-created-on";
-    private final static String BACKUP_DESCRIPTOR_PROPERTY_NAME_VERSION = "descriptor-version";
+    private static final String BACKUP_NAME_PARTS_SEPARATOR = "-";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_FILEPATHS = "descriptor-filepaths";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_FOLDERPATHS = "descriptor-folderpaths";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_CHECKSUM = "descriptor-checksum";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_FILES_COUNT = "descriptor-files-count";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_FOLDERS_COUNT = "descriptor-folders-count";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_FILES_COUNT_TOTAL = "descriptor-files-count-total";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_FOLDERS_COUNT_TOTAL = "descriptor-folders-count-total";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_IS_SECURED = "descriptor-is-secured";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_CREATED_ON = "descriptor-created-on";
+    private static final String BACKUP_DESCRIPTOR_PROPERTY_NAME_VERSION = "descriptor-version";
 
     // Controller
-    private final static long BACKUP_CHECKER_DELAY_MS = 10000;
+    private static final long BACKUP_CHECKER_DELAY_MS = 10000;
 
     // GUI
-    private final static String GUI_IMAGE_ICON_RESOURCE_PATH = "/images/app_icon.jpg";
-    private final static long TRAY_HIDE_DELAY = 4000;
+    private static final String GUI_IMAGE_ICON_RESOURCE_PATH = "/images/app_icon.jpg";
+    private static final long TRAY_HIDE_DELAY = 4000;
 
     public static String getAppName() {
         return APP_NAME;

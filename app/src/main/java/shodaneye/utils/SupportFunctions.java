@@ -29,7 +29,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -93,8 +92,12 @@ public class SupportFunctions {
         return result;
     }
 
-    public static boolean writeFilesAndFolders(List<String> filepaths, List<String> folderpaths,
-            File archiveFileOrFolder, BackupDescriptor descriptor, Workspace workspace) {
+    public static boolean writeFilesAndFolders(
+            List<String> filepaths,
+            List<String> folderpaths,
+            File archiveFileOrFolder,
+            BackupDescriptor descriptor,
+            Workspace workspace) {
         Logger.printApplicationLog("Start files and folders writing", "SupportFunctions");
 
         Workspace workspaceToWrite = workspace;
@@ -113,11 +116,12 @@ public class SupportFunctions {
             return writeFilesAndFoldersWithoutArchive(filepaths, folderpaths, archiveFileOrFolder);
         }
 
-        if (workspaceConfig.getBackupPassword() != null && !workspaceConfig.getBackupPassword().isEmpty()) {
+        if (workspaceConfig.getBackupPassword() != null
+                && !workspaceConfig.getBackupPassword().isEmpty()) {
             Logger.printApplicationLog("Write files and folders in archive with password", "SupportFunctions");
 
-            return writeFilesAndFoldersInArchiveWithPassword(filepaths, folderpaths, archiveFileOrFolder, descriptor,
-                    workspace);
+            return writeFilesAndFoldersInArchiveWithPassword(
+                    filepaths, folderpaths, archiveFileOrFolder, descriptor, workspace);
         } else {
             Logger.printApplicationLog("Write files and folders in archive without password", "SupportFunctions");
 
@@ -125,8 +129,8 @@ public class SupportFunctions {
         }
     }
 
-    public static boolean writeFilesAndFoldersWithoutArchive(List<String> filepaths, List<String> folderpaths,
-            File folder) {
+    public static boolean writeFilesAndFoldersWithoutArchive(
+            List<String> filepaths, List<String> folderpaths, File folder) {
         boolean success = Constants.getBoolDefault();
 
         List<File> filepathsParsed = listOfPathsToListOfFiles(filepaths);
@@ -143,8 +147,12 @@ public class SupportFunctions {
         return success;
     }
 
-    public static boolean writeFilesAndFoldersInArchiveWithPassword(List<String> filepaths, List<String> folderpaths,
-            File archive, BackupDescriptor descriptor, Workspace workspace) {
+    public static boolean writeFilesAndFoldersInArchiveWithPassword(
+            List<String> filepaths,
+            List<String> folderpaths,
+            File archive,
+            BackupDescriptor descriptor,
+            Workspace workspace) {
         boolean success = Constants.getBoolDefault();
 
         WorkspaceConfig workspaceConfig = null;
@@ -160,7 +168,8 @@ public class SupportFunctions {
         zipFileSettings.setEncryptFiles(ENCRYPTION_DEFAULT_PARAM);
         zipFileSettings.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD);
 
-        ZipFile zipFile = new ZipFile(archive, workspaceConfig.getBackupPassword().toCharArray());
+        ZipFile zipFile =
+                new ZipFile(archive, workspaceConfig.getBackupPassword().toCharArray());
         zipFile.setCharset(Charset.forName(Config.getConfig().getSystemEncoding()));
 
         List<File> filepathsParsed = listOfPathsToListOfFiles(filepaths);
@@ -190,8 +199,8 @@ public class SupportFunctions {
         }
     }
 
-    private static void writeFoldersIntoZip(List<File> folderpathsParsed, ZipFile zipFile,
-            ZipParameters zipFileSettings) {
+    private static void writeFoldersIntoZip(
+            List<File> folderpathsParsed, ZipFile zipFile, ZipParameters zipFileSettings) {
         Logger.printApplicationLog("Write folders in archive", "SupportFunctions");
 
         for (File folder : folderpathsParsed) {
@@ -217,8 +226,8 @@ public class SupportFunctions {
         }
     }
 
-    public static boolean writeFilesAndFoldersInArchiveWithoutPassword(List<String> filepaths, List<String> folderpaths,
-            File archive) {
+    public static boolean writeFilesAndFoldersInArchiveWithoutPassword(
+            List<String> filepaths, List<String> folderpaths, File archive) {
         boolean success = Constants.getBoolDefault();
 
         List<File> filepathsParsed = listOfPathsToListOfFiles(filepaths);
@@ -230,7 +239,8 @@ public class SupportFunctions {
         File relativePathFile = getRelativePath(allPaths);
         Path relativePath = Paths.get(relativePathFile.toURI());
 
-        try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(archive),
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(
+                new FileOutputStream(archive),
                 Charset.forName(Config.getConfig().getSystemEncoding()))) {
             putFoldersIntoZip(folderpathsParsed, relativePath, zipOutputStream);
             putFilesIntoZip(filepathsParsed, relativePath, zipOutputStream);
@@ -245,8 +255,8 @@ public class SupportFunctions {
         return success;
     }
 
-    private static void putFoldersIntoZip(List<File> folderpathsParsed, Path relativePath,
-            ZipOutputStream zipOutputStream) throws Exception {
+    private static void putFoldersIntoZip(
+            List<File> folderpathsParsed, Path relativePath, ZipOutputStream zipOutputStream) throws Exception {
         Logger.printApplicationLog("Put folders into zip", "SupportFunctions");
 
         for (File folder : folderpathsParsed) {
@@ -254,7 +264,8 @@ public class SupportFunctions {
                 putFoldersIntoZip(Arrays.asList(folder.listFiles()), relativePath, zipOutputStream);
             } else {
                 Path filePath = Paths.get(folder.toURI());
-                ZipEntry zipEntry = new ZipEntry(relativePath.relativize(filePath).toString());
+                ZipEntry zipEntry =
+                        new ZipEntry(relativePath.relativize(filePath).toString());
 
                 zipOutputStream.putNextEntry(zipEntry);
                 Files.copy(filePath, zipOutputStream);
@@ -338,8 +349,8 @@ public class SupportFunctions {
         return relativePath;
     }
 
-    public static boolean writeBackupDescriptor(BackupDescriptor descriptor, File backupDescriptorFile,
-            Workspace workspace) {
+    public static boolean writeBackupDescriptor(
+            BackupDescriptor descriptor, File backupDescriptorFile, Workspace workspace) {
         Logger.printApplicationLog("Start writing backup descriptor", "SupportFunctions");
 
         boolean success = Constants.getBoolDefault();
@@ -363,26 +374,27 @@ public class SupportFunctions {
 
         try {
             FileOutputStream configFOS = new FileOutputStream(backupDescriptorFile);
-            OutputStreamWriter writer = new OutputStreamWriter(configFOS, Config.getConfig().getSystemEncoding());
+            OutputStreamWriter writer =
+                    new OutputStreamWriter(configFOS, Config.getConfig().getSystemEncoding());
 
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFilepaths(),
-                    filepaths);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFolderpaths(),
-                    folderpaths);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameChecksum(),
-                    checksum);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFilesCount(),
-                    filesCount);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFoldersCount(),
-                    foldersCount);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFilesCountTotal(),
-                    filesCountTotal);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameFoldersCountTotal(),
-                    foldersCountTotal);
-            SupportFunctions.setBooleanProperty(properties, Constants.getBackupDescriptorPropertyNameIsSecured(),
-                    isSecured);
-            SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameCreatedOn(),
-                    createdOn);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFilepaths(), filepaths);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFolderpaths(), folderpaths);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameChecksum(), checksum);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFilesCount(), filesCount);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFoldersCount(), foldersCount);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFilesCountTotal(), filesCountTotal);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFoldersCountTotal(), foldersCountTotal);
+            SupportFunctions.setBooleanProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameIsSecured(), isSecured);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameCreatedOn(), createdOn);
             SupportFunctions.setStringProperty(properties, Constants.getBackupDescriptorPropertyNameVersion(), version);
 
             properties.store(writer, Constants.getTextDefault());
@@ -453,7 +465,9 @@ public class SupportFunctions {
         }
 
         result = sb.toString();
-        result = result.substring(Constants.getStartIndex(), result.length() - Constants.getListSeparator().length());
+        result = result.substring(
+                Constants.getStartIndex(),
+                result.length() - Constants.getListSeparator().length());
 
         return result;
     }
@@ -464,11 +478,11 @@ public class SupportFunctions {
         String reprCopy = new String(representation);
 
         while (reprCopy.contains(Constants.getListSeparator())) {
-            String element = reprCopy.substring(Constants.getStartIndex(),
-                    reprCopy.indexOf(Constants.getListSeparator()));
+            String element =
+                    reprCopy.substring(Constants.getStartIndex(), reprCopy.indexOf(Constants.getListSeparator()));
 
-            reprCopy = reprCopy
-                    .substring(reprCopy.indexOf(Constants.getListSeparator()) + Constants.getListSeparator().length());
+            reprCopy = reprCopy.substring(reprCopy.indexOf(Constants.getListSeparator())
+                    + Constants.getListSeparator().length());
             result.add(element);
         }
 
@@ -595,7 +609,9 @@ public class SupportFunctions {
     private static File checkThatFileIsArchiveAndReturn(File file, WorkspaceConfig config) {
         File result = null;
 
-        if (file.isFile() && config.isBackupInArchive() && !file.isDirectory()
+        if (file.isFile()
+                && config.isBackupInArchive()
+                && !file.isDirectory()
                 && file.getName().endsWith(Constants.getBackupArchiveFileExt())) {
             result = file;
         }
@@ -633,7 +649,8 @@ public class SupportFunctions {
 
             return result;
         } else if (config.isBackupInArchive()
-                && (config.getBackupPassword() == null || config.getBackupPassword().isEmpty())) {
+                && (config.getBackupPassword() == null
+                        || config.getBackupPassword().isEmpty())) {
             try (java.util.zip.ZipFile archiveFileZip = new java.util.zip.ZipFile(archiveFile)) {
                 if (archiveFileZip.size() == Constants.getIntDefault()) {
                     throw new ZipException("empty zip");
@@ -692,24 +709,25 @@ public class SupportFunctions {
         FileInputStream descriptorFIS;
         try {
             descriptorFIS = new FileInputStream(descriptorFile);
-            InputStreamReader reader = new InputStreamReader(descriptorFIS, Config.getConfig().getSystemEncoding());
+            InputStreamReader reader =
+                    new InputStreamReader(descriptorFIS, Config.getConfig().getSystemEncoding());
             Properties properties = new Properties();
             properties.load(reader);
 
-            filepaths = SupportFunctions.getStringProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameFilepaths());
-            folderpaths = SupportFunctions.getStringProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameFolderpaths());
-            checksum = SupportFunctions.getStringProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameChecksum());
-            filesCount = SupportFunctions.getStringProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameFilesCount());
-            isSecured = SupportFunctions.getBooleanProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameIsSecured());
-            createdOn = SupportFunctions.getStringProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameCreatedOn());
-            version = SupportFunctions.getStringProperty(properties,
-                    Constants.getBackupDescriptorPropertyNameVersion());
+            filepaths = SupportFunctions.getStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFilepaths());
+            folderpaths = SupportFunctions.getStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFolderpaths());
+            checksum =
+                    SupportFunctions.getStringProperty(properties, Constants.getBackupDescriptorPropertyNameChecksum());
+            filesCount = SupportFunctions.getStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameFilesCount());
+            isSecured = SupportFunctions.getBooleanProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameIsSecured());
+            createdOn = SupportFunctions.getStringProperty(
+                    properties, Constants.getBackupDescriptorPropertyNameCreatedOn());
+            version =
+                    SupportFunctions.getStringProperty(properties, Constants.getBackupDescriptorPropertyNameVersion());
         } catch (FileNotFoundException e) {
             Logger.printApplicationLog("descriptor file not found error", "SupportFunctions");
             Logger.printApplicationLog(e.getMessage(), "SupportFunctions");
@@ -729,8 +747,8 @@ public class SupportFunctions {
 
         Date createdOnDate = Date.from(Instant.now());
         try {
-            createdOnDate = new SimpleDateFormat(Constants.getConfigDateFormatDefault(), Locale.ENGLISH)
-                    .parse(createdOn);
+            createdOnDate =
+                    new SimpleDateFormat(Constants.getConfigDateFormatDefault(), Locale.ENGLISH).parse(createdOn);
         } catch (ParseException e) {
             Logger.printApplicationLog("date parse error", "SupportFunctions");
             Logger.printApplicationLog(e.getMessage(), "SupportFunctions");
@@ -898,16 +916,24 @@ public class SupportFunctions {
 
         String millis = timePart.split(Constants.getTimeUnitsMillisSeparator())[1];
 
-        long yearsMilliseconds = Long.parseLong(years) * ChronoUnit.YEARS.getDuration().toMillis();
-        long monthsMilliseconds = Long.parseLong(months) * ChronoUnit.MONTHS.getDuration().toMillis();
-        long daysMilliseconds = Long.parseLong(days) * ChronoUnit.DAYS.getDuration().toMillis();
+        long yearsMilliseconds =
+                Long.parseLong(years) * ChronoUnit.YEARS.getDuration().toMillis();
+        long monthsMilliseconds =
+                Long.parseLong(months) * ChronoUnit.MONTHS.getDuration().toMillis();
+        long daysMilliseconds =
+                Long.parseLong(days) * ChronoUnit.DAYS.getDuration().toMillis();
         long hoursMilliseconds = TimeUnit.HOURS.toMillis(Long.parseLong(hours));
         long minutesMilliseconds = TimeUnit.MINUTES.toMillis(Long.parseLong(minutes));
         long secondsMilliseconds = TimeUnit.SECONDS.toMillis(Long.parseLong(seconds));
         long milliseconds = Long.parseLong(millis);
 
-        dateDiffMs = yearsMilliseconds + monthsMilliseconds + daysMilliseconds + hoursMilliseconds + minutesMilliseconds
-                + secondsMilliseconds + milliseconds;
+        dateDiffMs = yearsMilliseconds
+                + monthsMilliseconds
+                + daysMilliseconds
+                + hoursMilliseconds
+                + minutesMilliseconds
+                + secondsMilliseconds
+                + milliseconds;
 
         return dateDiffMs;
     }
@@ -928,7 +954,8 @@ public class SupportFunctions {
 
         List<File> filesToBackup = listOfPathsToListOfFiles(listRepresentationToList(config.getFilesToBackup()));
         List<File> foldersToBackup = listOfPathsToListOfFiles(listRepresentationToList(config.getFoldersToBackup()));
-        boolean isSecured = config.getBackupPassword() != null && !config.getBackupPassword().isEmpty();
+        boolean isSecured = config.getBackupPassword() != null
+                && !config.getBackupPassword().isEmpty();
 
         boolean needDataCheck = !Constants.getBoolDefault();
 
@@ -942,7 +969,8 @@ public class SupportFunctions {
 
         List<Workspace> result = new ArrayList<Workspace>();
 
-        if (config.getBackupsFolderPath() == null || config.getBackupsFolderPath().isEmpty()) {
+        if (config.getBackupsFolderPath() == null
+                || config.getBackupsFolderPath().isEmpty()) {
             Logger.printApplicationLog("cant find workspaces to process", "SupportFunctions");
             nonCorrectExit();
         }

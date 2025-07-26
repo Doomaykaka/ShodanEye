@@ -1,5 +1,7 @@
 package shodaneye.gui;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.SystemTray;
@@ -11,18 +13,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.List;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-
-import shodaneye.utils.Config;
 import shodaneye.controllers.BackupController;
 import shodaneye.models.Workspace;
+import shodaneye.utils.Config;
 import shodaneye.utils.Constants;
 import shodaneye.utils.Logger;
 import shodaneye.utils.SupportFunctions;

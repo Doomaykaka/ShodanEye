@@ -1,7 +1,6 @@
 package shodaneye;
 
 import java.util.List;
-
 import shodaneye.controllers.BackupController;
 import shodaneye.gui.Tray;
 import shodaneye.models.Workspace;

@@ -42,14 +42,22 @@ public class Logger {
 
         if (printWriter != null && isNew) {
             printWriter.write(Constants.getLogFilesDelimeter() + Constants.getNewLine());
-            printWriter.write(LOG_MESSAGE_PREFFIX + LocalDateTime.now() + LOG_MESSAGE_POSTFIX
-                    + LOG_START_MESSAGE_POSTFIX_MODIFIER + Constants.getNewLine());
+            printWriter.write(LOG_MESSAGE_PREFFIX
+                    + LocalDateTime.now()
+                    + LOG_MESSAGE_POSTFIX
+                    + LOG_START_MESSAGE_POSTFIX_MODIFIER
+                    + Constants.getNewLine());
         }
 
         if (printWriter != null && message != null && source != null) {
-            printWriter.write(LOG_MESSAGE_PREFFIX + LocalDateTime.now() + LOG_MESSAGE_POSTFIX
-                    + LOG_SOURCE_MESSAGE_POSTFIX_START_MODIFIER + source + LOG_SOURCE_MESSAGE_POSTFIX_END_MODIFIER
-                    + message + Constants.getNewLine());
+            printWriter.write(LOG_MESSAGE_PREFFIX
+                    + LocalDateTime.now()
+                    + LOG_MESSAGE_POSTFIX
+                    + LOG_SOURCE_MESSAGE_POSTFIX_START_MODIFIER
+                    + source
+                    + LOG_SOURCE_MESSAGE_POSTFIX_END_MODIFIER
+                    + message
+                    + Constants.getNewLine());
         }
 
         if (printWriter != null && message != null && source == null) {

@@ -53,12 +53,9 @@ public class Backup {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         Backup other = (Backup) obj;
         return Objects.equals(data, other.data) && Objects.equals(descriptor, other.descriptor);
     }

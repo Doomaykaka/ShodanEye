@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import shodaneye.models.Backup;
 import shodaneye.models.BackupDescriptor;
 import shodaneye.models.BackupStrategy;
@@ -151,8 +150,8 @@ public class BackupDAO {
         }
 
         try {
-            saveIsCorrect = strategy.startBackupProcess(workspace, backupToSave.getDescriptor(),
-                    lastBackupDescriptor) != null;
+            saveIsCorrect =
+                    strategy.startBackupProcess(workspace, backupToSave.getDescriptor(), lastBackupDescriptor) != null;
         } catch (IOException e) {
             Logger.printApplicationLog("backup process error", "SupportFunctions");
             Logger.printApplicationLog(e.getMessage(), "SupportFunctions");

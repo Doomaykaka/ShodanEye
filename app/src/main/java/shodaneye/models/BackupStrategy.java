@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-
 import shodaneye.utils.Config.WorkspaceConfig;
 import shodaneye.utils.Constants;
 import shodaneye.utils.Logger;
@@ -25,8 +24,9 @@ public class BackupStrategy {
         strategyTypes.addAll(backupStrategyTypes);
     }
 
-    public Backup startBackupProcess(Workspace workspace, BackupDescriptor backupDescriptor,
-            BackupDescriptor lastBackupDescriptor) throws IOException {
+    public Backup startBackupProcess(
+            Workspace workspace, BackupDescriptor backupDescriptor, BackupDescriptor lastBackupDescriptor)
+            throws IOException {
         Logger.printApplicationLog("Start backup process", "BackupStrategy");
 
         Backup backup = null;
@@ -42,8 +42,9 @@ public class BackupStrategy {
         return backup;
     }
 
-    private boolean checkThatBackupNeeded(BackupDescriptor backupDescriptor, Workspace workspace,
-            BackupDescriptor lastBackupDescriptor) throws IOException {
+    private boolean checkThatBackupNeeded(
+            BackupDescriptor backupDescriptor, Workspace workspace, BackupDescriptor lastBackupDescriptor)
+            throws IOException {
         Logger.printApplicationLog("Check that backup needed", "BackupStrategy");
 
         boolean backupNeeded = Constants.getBoolDefault();
@@ -82,8 +83,9 @@ public class BackupStrategy {
         return backupNeeded;
     }
 
-    private boolean checkThatBackupNeededByTimeAndOnChange(BackupDescriptor backupDescriptor, Workspace workspace,
-            BackupDescriptor lastBackupDescriptor) throws IOException {
+    private boolean checkThatBackupNeededByTimeAndOnChange(
+            BackupDescriptor backupDescriptor, Workspace workspace, BackupDescriptor lastBackupDescriptor)
+            throws IOException {
         boolean backupNeeded = Constants.getBoolDefault();
 
         Workspace backupWorkspace = workspace;
@@ -164,8 +166,8 @@ public class BackupStrategy {
         return result;
     }
 
-    private File prepareBackupStructure(BackupDescriptor backupDescriptor, Workspace workspace,
-            WorkspaceConfig workspaceConfig) {
+    private File prepareBackupStructure(
+            BackupDescriptor backupDescriptor, Workspace workspace, WorkspaceConfig workspaceConfig) {
         File backup = null;
 
         List<String> filesToBackup = SupportFunctions.listRepresentationToList(workspaceConfig.getFilesToBackup());
@@ -192,7 +194,8 @@ public class BackupStrategy {
             e.printStackTrace();
         }
 
-        String backupFolderName = backupName.replaceAll(Constants.getSpaceRegexp(), Constants.getFsSeparator())
+        String backupFolderName = backupName
+                .replaceAll(Constants.getSpaceRegexp(), Constants.getFsSeparator())
                 .replaceAll(Constants.getListSeparator(), Constants.getFsSeparator())
                 .replaceAll(Constants.getTimeSeparator(), Constants.getFsSeparator());
         File currentBackupFolder = new File(workspaceFolder, backupFolderName);
@@ -208,15 +211,26 @@ public class BackupStrategy {
             }
         }
 
-        backup = prepareBackupContent(backupDescriptor, workspace, workspaceConfig, currentBackupFolder,
-                backupFolderName, filesToBackup, foldersToBackup);
+        backup = prepareBackupContent(
+                backupDescriptor,
+                workspace,
+                workspaceConfig,
+                currentBackupFolder,
+                backupFolderName,
+                filesToBackup,
+                foldersToBackup);
 
         return backup;
     }
 
-    private File prepareBackupContent(BackupDescriptor backupDescriptor, Workspace workspace,
-            WorkspaceConfig workspaceConfig, File currentBackupFolder, String backupFolderName,
-            List<String> filesToBackup, List<String> foldersToBackup) {
+    private File prepareBackupContent(
+            BackupDescriptor backupDescriptor,
+            Workspace workspace,
+            WorkspaceConfig workspaceConfig,
+            File currentBackupFolder,
+            String backupFolderName,
+            List<String> filesToBackup,
+            List<String> foldersToBackup) {
         File backup = null;
 
         if (workspaceConfig.isBackupInArchive()) {
@@ -249,8 +263,8 @@ public class BackupStrategy {
             backup = backupFolder;
         }
 
-        File backupDescriptorFile = new File(currentBackupFolder,
-                backupFolderName + Constants.getBackupDescriptionFileExt());
+        File backupDescriptorFile =
+                new File(currentBackupFolder, backupFolderName + Constants.getBackupDescriptionFileExt());
 
         if (!backupDescriptorFile.exists()) {
             try {
@@ -272,7 +286,8 @@ public class BackupStrategy {
 
     private void checkThatBackupIsCorrect(WorkspaceConfig workspaceConfig, File backup) {
         if (workspaceConfig.isBackupInArchive()
-                && (workspaceConfig.getBackupPassword() == null || workspaceConfig.getBackupPassword().isEmpty())) {
+                && (workspaceConfig.getBackupPassword() == null
+                        || workspaceConfig.getBackupPassword().isEmpty())) {
             try (ZipFile zip = new ZipFile(backup)) {
                 if (zip.size() == Constants.getIntDefault()) {
                     throw new ZipException("zip generation error");
@@ -286,7 +301,8 @@ public class BackupStrategy {
                 Logger.printApplicationLog(e.getMessage(), "BackupStrategy");
                 e.printStackTrace();
             }
-        } else if (workspaceConfig.isBackupInArchive() && workspaceConfig.getBackupPassword() != null
+        } else if (workspaceConfig.isBackupInArchive()
+                && workspaceConfig.getBackupPassword() != null
                 && !workspaceConfig.getBackupPassword().isEmpty()) {
             try {
                 if (!backup.exists() || backup.isDirectory()) {

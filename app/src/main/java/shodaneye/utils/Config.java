@@ -1,5 +1,6 @@
 package shodaneye.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,8 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.file.Path;
 import java.util.Properties;
-import java.io.File;
-
 import shodaneye.models.Workspace;
 
 public class Config {
@@ -34,8 +33,9 @@ public class Config {
 
         String configParentFolder = System.getProperty(Constants.getConfigParentFolderName());
 
-        this.pathToConfig = Path
-                .of(Path.of(configParentFolder, Constants.getConfigFilename()).toFile().getAbsolutePath());
+        this.pathToConfig = Path.of(Path.of(configParentFolder, Constants.getConfigFilename())
+                .toFile()
+                .getAbsolutePath());
 
         if (!this.pathToConfig.toFile().exists()) {
             throw new FileNotFoundException(Constants.getConfigNotFoundMessage() + this.pathToConfig.toString());
@@ -46,17 +46,17 @@ public class Config {
         Properties properties = new Properties();
         properties.load(reader);
 
-        this.filesCheckDelayMs = SupportFunctions.getStringProperty(properties,
-                Constants.getPropertyNameFilesCheckDelay());
+        this.filesCheckDelayMs =
+                SupportFunctions.getStringProperty(properties, Constants.getPropertyNameFilesCheckDelay());
         this.trayShowTimeMs = SupportFunctions.getStringProperty(properties, Constants.getPropertyNameTrayShowTimeMs());
         this.encoding = SupportFunctions.getStringProperty(properties, Constants.getPropertyNameEncoding());
         this.logApp = SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameLogApp());
         this.useLAF = SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameLafIsNeeded());
         this.useDark = SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameDarkThemeIsNeeded());
-        this.useRussianLanguage = SupportFunctions.getBooleanProperty(properties,
-                Constants.getPropertyNameRussianLanguageIsNeeded());
-        this.backupsFolderPath = SupportFunctions.getStringProperty(properties,
-                Constants.getPropertyNameBackupFolderPath());
+        this.useRussianLanguage =
+                SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameRussianLanguageIsNeeded());
+        this.backupsFolderPath =
+                SupportFunctions.getStringProperty(properties, Constants.getPropertyNameBackupFolderPath());
 
         if (this.encoding != null && !this.encoding.isEmpty()) {
             this.systemEncoding = encoding;
@@ -88,8 +88,9 @@ public class Config {
     public void save() throws IOException {
         String configParentFolder = System.getProperty(Constants.getConfigParentFolderName());
 
-        this.pathToConfig = Path
-                .of(Path.of(configParentFolder, Constants.getConfigFilename()).toFile().getAbsolutePath());
+        this.pathToConfig = Path.of(Path.of(configParentFolder, Constants.getConfigFilename())
+                .toFile()
+                .getAbsolutePath());
 
         if (!this.pathToConfig.toFile().exists()) {
             throw new FileNotFoundException(Constants.getConfigNotFoundMessage() + this.pathToConfig.toString());
@@ -105,8 +106,8 @@ public class Config {
         SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameLogApp(), logApp);
         SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameLafIsNeeded(), useLAF);
         SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameDarkThemeIsNeeded(), useDark);
-        SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameRussianLanguageIsNeeded(),
-                useRussianLanguage);
+        SupportFunctions.setBooleanProperty(
+                properties, Constants.getPropertyNameRussianLanguageIsNeeded(), useRussianLanguage);
         SupportFunctions.setStringProperty(properties, Constants.getPropertyNameBackupFolderPath(), backupsFolderPath);
 
         properties.store(writer, Constants.getTextDefault());
@@ -209,49 +210,51 @@ public class Config {
             pathToConfig = workspaceConfigFilePath;
 
             FileInputStream configFIS = new FileInputStream(workspaceConfigFilePath.toString());
-            InputStreamReader reader = new InputStreamReader(configFIS, Config.getConfig().getSystemEncoding());
+            InputStreamReader reader =
+                    new InputStreamReader(configFIS, Config.getConfig().getSystemEncoding());
             Properties properties = new Properties();
             properties.load(reader);
 
-            this.backupPassword = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameBackupPassword());
-            this.backupDateDiff = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameBackupDateDiff());
-            this.backupUseTimestamps = SupportFunctions.getBooleanProperty(properties,
-                    Constants.getPropertyNameBackupUseTimestamp());
-            this.backupUseVersion = SupportFunctions.getBooleanProperty(properties,
-                    Constants.getPropertyNameBackupUseVersion());
-            this.backupPreffix = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameBackupPreffix());
-            this.backupPostfix = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameBackupPostfix());
-            this.backupInArchive = SupportFunctions.getBooleanProperty(properties,
-                    Constants.getPropertyNameBackupInArchive());
-            this.backupsStrategyTypes = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameBackupsStrategyTypes());
-            this.filesToBackup = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameFilesToBackup());
-            this.foldersToBackup = SupportFunctions.getStringProperty(properties,
-                    Constants.getPropertyNameFoldersToBackup());
+            this.backupPassword =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameBackupPassword());
+            this.backupDateDiff =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameBackupDateDiff());
+            this.backupUseTimestamps =
+                    SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameBackupUseTimestamp());
+            this.backupUseVersion =
+                    SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameBackupUseVersion());
+            this.backupPreffix =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameBackupPreffix());
+            this.backupPostfix =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameBackupPostfix());
+            this.backupInArchive =
+                    SupportFunctions.getBooleanProperty(properties, Constants.getPropertyNameBackupInArchive());
+            this.backupsStrategyTypes =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameBackupsStrategyTypes());
+            this.filesToBackup =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameFilesToBackup());
+            this.foldersToBackup =
+                    SupportFunctions.getStringProperty(properties, Constants.getPropertyNameFoldersToBackup());
         }
 
         public void save() throws IOException {
             FileOutputStream configFOS = new FileOutputStream(this.pathToConfig.toString());
-            OutputStreamWriter writer = new OutputStreamWriter(configFOS, Config.getConfig().getSystemEncoding());
+            OutputStreamWriter writer =
+                    new OutputStreamWriter(configFOS, Config.getConfig().getSystemEncoding());
             Properties properties = new Properties();
 
             SupportFunctions.setStringProperty(properties, Constants.getPropertyNameBackupPassword(), backupPassword);
             SupportFunctions.setStringProperty(properties, Constants.getPropertyNameBackupDateDiff(), backupDateDiff);
-            SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameBackupUseTimestamp(),
-                    backupUseTimestamps);
-            SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameBackupUseVersion(),
-                    backupUseVersion);
+            SupportFunctions.setBooleanProperty(
+                    properties, Constants.getPropertyNameBackupUseTimestamp(), backupUseTimestamps);
+            SupportFunctions.setBooleanProperty(
+                    properties, Constants.getPropertyNameBackupUseVersion(), backupUseVersion);
             SupportFunctions.setStringProperty(properties, Constants.getPropertyNameBackupPreffix(), backupPreffix);
             SupportFunctions.setStringProperty(properties, Constants.getPropertyNameBackupPostfix(), backupPostfix);
-            SupportFunctions.setBooleanProperty(properties, Constants.getPropertyNameBackupInArchive(),
-                    backupInArchive);
-            SupportFunctions.setStringProperty(properties, Constants.getPropertyNameBackupsStrategyTypes(),
-                    backupsStrategyTypes);
+            SupportFunctions.setBooleanProperty(
+                    properties, Constants.getPropertyNameBackupInArchive(), backupInArchive);
+            SupportFunctions.setStringProperty(
+                    properties, Constants.getPropertyNameBackupsStrategyTypes(), backupsStrategyTypes);
             SupportFunctions.setStringProperty(properties, Constants.getPropertyNameFilesToBackup(), filesToBackup);
             SupportFunctions.setStringProperty(properties, Constants.getPropertyNameFoldersToBackup(), foldersToBackup);
 
@@ -339,6 +342,5 @@ public class Config {
         public void setFoldersToBackup(String foldersToBackup) {
             this.foldersToBackup = foldersToBackup;
         }
-
     }
 }

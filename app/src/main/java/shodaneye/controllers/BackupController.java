@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import shodaneye.App;
 import shodaneye.dao.BackupDAO;
 import shodaneye.models.Backup;
@@ -16,8 +15,8 @@ import shodaneye.models.BackupDescriptor;
 import shodaneye.models.BackupStrategy;
 import shodaneye.models.BackupStrategyType;
 import shodaneye.models.Workspace;
-import shodaneye.utils.Config.WorkspaceConfig;
 import shodaneye.utils.Config;
+import shodaneye.utils.Config.WorkspaceConfig;
 import shodaneye.utils.Constants;
 import shodaneye.utils.Logger;
 import shodaneye.utils.SupportFunctions;
@@ -52,8 +51,8 @@ public class BackupController {
             e.printStackTrace();
         }
 
-        Set<BackupStrategyType> backupStartegyTypes = SupportFunctions
-                .parseBackupStrategyTypes(workspaceConfig.getBackupsStrategyTypes());
+        Set<BackupStrategyType> backupStartegyTypes =
+                SupportFunctions.parseBackupStrategyTypes(workspaceConfig.getBackupsStrategyTypes());
 
         BackupStrategy strategy = new BackupStrategy(backupStartegyTypes);
         BackupDAO newDAO = new BackupDAO(strategy, workspace);
@@ -106,8 +105,8 @@ public class BackupController {
         }
 
         List<String> filesToBackupRerpr = SupportFunctions.listRepresentationToList(workspaceConfig.getFilesToBackup());
-        List<String> foldersToBackupRerpr = SupportFunctions
-                .listRepresentationToList(workspaceConfig.getFoldersToBackup());
+        List<String> foldersToBackupRerpr =
+                SupportFunctions.listRepresentationToList(workspaceConfig.getFoldersToBackup());
         List<File> filesToBackup = SupportFunctions.listOfPathsToListOfFiles(filesToBackupRerpr);
         List<File> foldersToBackup = SupportFunctions.listOfPathsToListOfFiles(foldersToBackupRerpr);
 
@@ -168,8 +167,8 @@ public class BackupController {
         }
     }
 
-    private void restoreBackupFromArchive(Backup backup, List<File> backupFiles, List<File> backupFolders,
-            WorkspaceConfig workspaceConfig) {
+    private void restoreBackupFromArchive(
+            Backup backup, List<File> backupFiles, List<File> backupFolders, WorkspaceConfig workspaceConfig) {
         File backupZipFile = backup.getData();
 
         if (backupZipFile == null || !backupZipFile.exists() || backupZipFile.isDirectory()) {
@@ -240,8 +239,8 @@ public class BackupController {
                     e.printStackTrace();
                 }
 
-                Set<BackupStrategyType> strategies = SupportFunctions
-                        .parseBackupStrategyTypes(config.getBackupsStrategyTypes());
+                Set<BackupStrategyType> strategies =
+                        SupportFunctions.parseBackupStrategyTypes(config.getBackupsStrategyTypes());
 
                 if (strategies.contains(BackupStrategyType.MANUAL)) {
                     return;

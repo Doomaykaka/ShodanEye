@@ -45,12 +45,9 @@ public class Workspace {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         Workspace other = (Workspace) obj;
         return Objects.equals(backups, other.backups) && Objects.equals(name, other.name);
     }

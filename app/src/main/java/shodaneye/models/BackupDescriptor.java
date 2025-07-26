@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import shodaneye.utils.Constants;
 import shodaneye.utils.Logger;
 import shodaneye.utils.SupportFunctions;
@@ -44,8 +43,8 @@ public class BackupDescriptor implements Cloneable {
     public BackupDescriptor(BackupDescriptor backupDescriptorToClone) {
         this.filePaths = List.copyOf(backupDescriptorToClone.getFilePaths());
         this.foldersPaths = List.copyOf(backupDescriptorToClone.getFilePaths());
-        this.checksum = Arrays.copyOf(backupDescriptorToClone.getChecksum(),
-                backupDescriptorToClone.getChecksum().length);
+        this.checksum =
+                Arrays.copyOf(backupDescriptorToClone.getChecksum(), backupDescriptorToClone.getChecksum().length);
         this.filesCount = backupDescriptorToClone.getFilesCount();
         this.foldersCount = backupDescriptorToClone.getFoldersCount();
         this.filesCountTotal = backupDescriptorToClone.getFilesCountTotal();
@@ -55,8 +54,8 @@ public class BackupDescriptor implements Cloneable {
         this.version = backupDescriptorToClone.getVersion();
     }
 
-    public BackupDescriptor(List<File> foldersToBackup, List<File> filesToBackup, boolean isSecured,
-            boolean checkData) {
+    public BackupDescriptor(
+            List<File> foldersToBackup, List<File> filesToBackup, boolean isSecured, boolean checkData) {
         this.isSecured = isSecured;
         this.createdOn = Date.from(Instant.now());
 
@@ -276,33 +275,60 @@ public class BackupDescriptor implements Cloneable {
         final int prime = 31;
         int result = 1;
         result = prime * result + Arrays.hashCode(checksum);
-        result = prime * result + Objects.hash(createdOn, filePaths, filesCount, filesCountTotal, foldersCount,
-                foldersCountTotal, foldersPaths, isSecured, version);
+        result = prime * result
+                + Objects.hash(
+                        createdOn,
+                        filePaths,
+                        filesCount,
+                        filesCountTotal,
+                        foldersCount,
+                        foldersCountTotal,
+                        foldersPaths,
+                        isSecured,
+                        version);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         BackupDescriptor other = (BackupDescriptor) obj;
-        return Arrays.equals(checksum, other.checksum) && Objects.equals(createdOn, other.createdOn)
-                && Objects.equals(filePaths, other.filePaths) && filesCount == other.filesCount
-                && filesCountTotal == other.filesCountTotal && foldersCount == other.foldersCount
-                && foldersCountTotal == other.foldersCountTotal && Objects.equals(foldersPaths, other.foldersPaths)
-                && isSecured == other.isSecured && version == other.version;
+        return Arrays.equals(checksum, other.checksum)
+                && Objects.equals(createdOn, other.createdOn)
+                && Objects.equals(filePaths, other.filePaths)
+                && filesCount == other.filesCount
+                && filesCountTotal == other.filesCountTotal
+                && foldersCount == other.foldersCount
+                && foldersCountTotal == other.foldersCountTotal
+                && Objects.equals(foldersPaths, other.foldersPaths)
+                && isSecured == other.isSecured
+                && version == other.version;
     }
 
     @Override
     public String toString() {
-        return REPRESENTATION_PART_1 + filePaths + REPRESENTATION_PART_2 + foldersPaths + REPRESENTATION_PART_3
-                + Arrays.toString(checksum) + REPRESENTATION_PART_4 + filesCount + REPRESENTATION_PART_5 + foldersCount
-                + REPRESENTATION_PART_6 + filesCountTotal + REPRESENTATION_PART_7 + foldersCountTotal
-                + REPRESENTATION_PART_8 + isSecured + REPRESENTATION_PART_9 + createdOn + REPRESENTATION_PART_10
-                + version + REPRESENTATION_PART_11;
+        return REPRESENTATION_PART_1
+                + filePaths
+                + REPRESENTATION_PART_2
+                + foldersPaths
+                + REPRESENTATION_PART_3
+                + Arrays.toString(checksum)
+                + REPRESENTATION_PART_4
+                + filesCount
+                + REPRESENTATION_PART_5
+                + foldersCount
+                + REPRESENTATION_PART_6
+                + filesCountTotal
+                + REPRESENTATION_PART_7
+                + foldersCountTotal
+                + REPRESENTATION_PART_8
+                + isSecured
+                + REPRESENTATION_PART_9
+                + createdOn
+                + REPRESENTATION_PART_10
+                + version
+                + REPRESENTATION_PART_11;
     }
 }
