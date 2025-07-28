@@ -31,7 +31,7 @@ public class Tray {
 
     private BackupController controller;
 
-    private static final String TRAY_ICON_TOOLTIP_NAME = "SmallBackup";
+    private static final String TRAY_ICON_TOOLTIP_NAME = "ShodanEye";
     private static final String BACKUP_BUTTON_NAME = "Backup";
     private static final String RESTORE_BUTTON_NAME = "Restore";
     private static final String EXIT_BUTTON_NAME = "Exit";

@@ -2,7 +2,7 @@ package shodaneye.utils;
 
 public class Constants {
     // App
-    private static final String APP_NAME = "SmallBackup";
+    private static final String APP_NAME = "ShodanEye";
     private static final String TEXT_DEFAULT = "";
     private static final String SPACE = " ";
     private static final String SPACE_REGEXP = "\s";
